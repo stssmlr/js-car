@@ -57,8 +57,10 @@ const items =
             style={{
               padding: 0,
               background: colorBgContainer,
-            }}
-          />
+              height: '100px',
+            }}>
+                <img src="https://as2.ftcdn.net/v2/jpg/04/81/50/21/1000_F_481502134_PBF5iVXkoOkoV3SNXLPSIvXPoaGzwTbv.jpg" width="100px" alt="" srcset="" />
+          </Header>
           <Content className='main'
             style={{
               padding: '0 48px',
