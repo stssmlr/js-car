@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Tag } from 'antd';
 
-const api = "https://localhost:7198/";
+const api = "https://localhost:7198/api/products/all";
 const columns = [
     {
         title: 'Image',

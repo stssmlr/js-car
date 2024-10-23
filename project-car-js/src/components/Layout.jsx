@@ -1,79 +1,91 @@
-import React from 'react';
-import { Breadcrumb, Layout as LayoutAnt, Menu, theme } from 'antd';
-import { HomeFilled, InfoCircleFilled, ProductFilled } from '@ant-design/icons';
+import React, { useState } from 'react';
+import {  HomeFilled, ProductFilled, InfoCircleFilled} from '@ant-design/icons';
+import { Layout as LayoutAnt, Menu, theme } from 'antd';
 import CarTable from './CarTable';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
-const { Header, Content, Footer } = LayoutAnt;
 
-const items = [
-    {
-        key: 1,
+
+const { Header, Content, Footer , Sider} = LayoutAnt;
+
+
+
+const items = 
+    [{
+        key: '/',
         label: "Home",
-        icon: <HomeFilled />,
+        icon: <Link to="/"><HomeFilled /></Link>,
     },
     {
-        key: 2,
-        label: "Products",
-        icon: <ProductFilled />
+        key: '/cars',
+        label: "Catalog",
+        icon: <Link to="/cars"><ProductFilled /></Link>
     },
     {
-        key: 3,
+        key: '/about',
         label: "About",
-        icon: <InfoCircleFilled />
-    },
-];
+        icon: <Link to="/about"><InfoCircleFilled /></Link>
+    }]
+  const Layout = () => {
+    const [current] = useState(useLocation().pathname);
 
-const Layout = () => {
     const {
-        token: { colorBgContainer, borderRadiusLG },
+      token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
     return (
-        <LayoutAnt className='Layout'>
-            <Header
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
+      <LayoutAnt className='Layout'>
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          onBreakpoint={(broken) => {
+            console.log(broken);
+          }}
+          onCollapse={(collapsed, type) => {
+            console.log(collapsed, type);
+          }}
+        >
+          <div className="demo-logo-vertical" />
+          <Menu 
+          theme="dark" 
+          mode="inline" 
+          defaultSelectedKeys={[current]} 
+          items={items} 
+          />
+        </Sider>
+        <LayoutAnt>
+          <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+            }}
+          />
+          <Content className='main'
+            style={{
+              padding: '0 48px',
+              margin: '24px 0'
+              
+            }}
+          >
+            <div
+              style={{
+                background: colorBgContainer,
+                minHeight: 280,
+                padding: 24,
+                borderRadius: borderRadiusLG,
+              }}
             >
-                <div className="demo-logo" />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['1']}
-                    items={items}
-                    style={{
-                        flex: 1,
-                        minWidth: 0,
-                    }}
-                />
-            </Header>
-
-            <Content className='main'
-                style={{
-                    padding: '0 48px',
-                    margin: '24px 0'
-                }}
-            >
-                <div
-                    style={{
-                        background: colorBgContainer,
-                        minHeight: 280,
-                        padding: 24,
-                        borderRadius: borderRadiusLG,
-                    }}
-                >
-                    <CarTable />
-                </div>
-            </Content>
-
-            <Footer
-                style={{
-                    textAlign: 'center',
-                }}
-            >
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
-            </Footer>
-        </LayoutAnt>
+              <Outlet />
+            </div>
+          </Content>
+          <Footer
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          </Footer>
+          </LayoutAnt>
+      </LayoutAnt>
     );
-};
+  };
 export default Layout;
