@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag } from 'antd';
+import { Button, message, Popconfirm, Space, Table, Tag } from 'antd';
+import { Link } from 'react-router-dom';
+import { AppstoreAddOutlined, DeleteFilled, EditFilled, InfoCircleFilled, SearchOutlined } from '@ant-design/icons';
 
 const api = "https://localhost:7198/api/products/all";
+const CarTable = () => {
+
 const columns = [
     {
         title: 'Image',
@@ -59,17 +63,32 @@ const columns = [
     // },
     {
         title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>View</a>
-                <a>Delete</a>
-            </Space>
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Link to={`/products/${record.id}`}>
+                        <Button color="default" variant="outlined" icon={<InfoCircleFilled />} />
+                    </Link>
+                    <Button style={{ color: '#faad14' }} variant="outlined" icon={<EditFilled />} />
+                    <Popconfirm
+                        title="Delete the product"
+                        description={`Are you sure to delete ${record.title}?`}
+                        onConfirm={() => deleteItem(record.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button color="danger" variant="outlined" icon={<DeleteFilled />} />
+                    </Popconfirm>
+                </Space>
         ),
     },
 ];
+const deleteItem = (id) => {
+    // TODO: HTTP delete request
+    setProducts(products.filter(x => x.id !== id));
+    message.success('Product deleted successfuly!');
+}
 
-const CarTable = () => {
 
     const [products, setProducts] = useState([]);
 
@@ -81,6 +100,8 @@ const CarTable = () => {
                 setProducts(data);
             });
     }, []);
+
+    
 
     return (<Table columns={columns} dataSource={products} rowKey="id" />);
 }
