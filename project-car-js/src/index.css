@@ -17,3 +17,12 @@ body{
   flex-grow: 1;
 }
 
+.siderLayout{
+  background-color: orange;
+
+}
+
+.menuSider{
+  background-color: orange;
+  color: azure;
+}

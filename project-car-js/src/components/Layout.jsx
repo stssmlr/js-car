@@ -34,7 +34,7 @@ const items =
     } = theme.useToken();
     return (
       <LayoutAnt className='Layout'>
-        <Sider
+        <Sider className='siderLayout'
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={(broken) => {
@@ -44,8 +44,9 @@ const items =
             console.log(collapsed, type);
           }}
         >
+          <img src="https://static.vecteezy.com/system/resources/thumbnails/027/385/442/small/car-stainless-logo-png.png" width="150px" alt="" srcset="" className='logo' />
           <div className="demo-logo-vertical" />
-          <Menu 
+          <Menu className='menuSider'
           theme="dark" 
           mode="inline" 
           defaultSelectedKeys={[current]} 
@@ -59,7 +60,7 @@ const items =
               background: colorBgContainer,
               height: '100px',
             }}>
-                <img src="https://as2.ftcdn.net/v2/jpg/04/81/50/21/1000_F_481502134_PBF5iVXkoOkoV3SNXLPSIvXPoaGzwTbv.jpg" width="100px" alt="" srcset="" />
+                
           </Header>
           <Content className='main'
             style={{

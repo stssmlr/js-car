@@ -103,6 +103,17 @@ const deleteItem = (id) => {
 
     
 
-    return (<Table columns={columns} dataSource={products} rowKey="id" />);
+    return (
+        <>
+        <div>
+            <Link to="/create">
+                <Button type="primary" icon={<AppstoreAddOutlined />} style={{ marginBottom: '16px' }}>
+                    Create New Product
+                </Button>
+            </Link>
+        </div>
+        <Table columns={columns} dataSource={products} rowKey="id" />
+    </>
+    );
 }
 export default CarTable;

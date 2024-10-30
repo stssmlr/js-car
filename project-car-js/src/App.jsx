@@ -6,6 +6,8 @@ import Layout from './components/Layout'
 import Home from './components/Home'
 import About from './components/About'
 import CarTable from './components/CarTable';
+import CreateCar from './components/CreateCar';
+import CarInfo from './components/CarInfo';
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/cars" element={<CarTable />} />
           <Route path="/about" element={<About />} />
+          <Route path="/create" element={<CreateCar />} />
+          <Route path="products/:id" element={<CarInfo />} />
         </Route>
       </Routes>
     </>

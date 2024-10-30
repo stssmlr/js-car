@@ -1,7 +1,13 @@
+import React from 'react'
 
-const About = () =>{
-    <div>About</div>
-    }
-    
-    export default About;
-    
+export default function About() {
+    return (
+        <div>
+            <img style={{
+                objectFit: 'contain',
+                width: '100%'
+            
+            }} src="" />
+        </div>
+    )
+}
