@@ -1,4 +1,5 @@
 import { LeftOutlined, PlusOutlined, UpCircleOutlined } from '@ant-design/icons';
+
 import {
     Button,
     Form,
@@ -10,26 +11,33 @@ import {
     Upload,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import TextArea from 'antd/es/input/TextArea';
 
 
-const { TextArea } = Input;
-const normFile = (e) => {
-    if (Array.isArray(e)) {
-        return e[0];
-    }
-    return e?.file;
-};
+
 
 const api = "https://localhost:7198/api/products/";
 
-const CreateCar = () => {
+const EditCar = () => {
 
-    const navigate = useNavigate();
+    const [product, setCar] = useState({});
     const [categories, setCategories] = useState([]);
+
+
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [form] = Form.useForm();
+
     useEffect(() => {
         fetch(api + 'categories').then(res => res.json()).then(data => {
             setCategories(data.map(x => { return { label: x.name, value: x.id } }));
+        });
+
+        fetch(api + id).then(res => res.json()).then(data => {
+            setCar(data);
+            form.setFieldsValue(data);
+            console.log(data);
         });
     }, []);
 
@@ -37,7 +45,7 @@ const CreateCar = () => {
         console.log(item);
 
          fetch(api, {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(item),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -59,7 +67,7 @@ const CreateCar = () => {
         
         <>
         <Button onClick={() => navigate(-1)} color="default" variant="text" icon={<LeftOutlined />}></Button>
-            <h2>Create New Car</h2>
+            <h2>Edit Car</h2>
             <Form
                 labelCol={{
                     span: 4,
@@ -71,8 +79,10 @@ const CreateCar = () => {
                 style={{
                     maxWidth: 600,
                 }}
+                form={form}
                 onFinish={onSubmit}
             >
+                <Form.Item name="id" hidden></Form.Item>
                 <Form.Item label="Name" name="name"
                     rules={[
                         {
@@ -116,7 +126,7 @@ const CreateCar = () => {
                             Cancel
                         </Button>
                         <Button type="primary" htmlType="submit">
-                            Create
+                            Edit
                         </Button>
                     </Space>
                 </Form.Item>
@@ -124,4 +134,4 @@ const CreateCar = () => {
         </>
     );
 };
-export default CreateCar;
+export default EditCar;

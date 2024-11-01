@@ -8,6 +8,7 @@ import About from './components/About'
 import CarTable from './components/CarTable';
 import CreateCar from './components/CreateCar';
 import CarInfo from './components/CarInfo';
+import EditCar from './components/EditCar';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/cars" element={<CarTable />} />
           <Route path="/about" element={<About />} />
           <Route path="/create" element={<CreateCar />} />
+          <Route path="edit/:id" element={<EditCar />} />
           <Route path="products/:id" element={<CarInfo />} />
         </Route>
       </Routes>
